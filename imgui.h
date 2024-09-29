@@ -20,14 +20,6 @@
 // - For first-time users having issues compiling/linking/running or issues loading fonts:
 //   please post in https://github.com/ocornut/imgui/discussions if you cannot find a solution in resources above.
 
-// Library Version
-// (Integer encoded as XYYZZ for use in #if preprocessor conditionals, e.g. '#if IMGUI_VERSION_NUM > 12345')
-#define IMGUI_VERSION               "1.89.3 WIP"
-#define IMGUI_VERSION_NUM           18927
-#define IMGUI_HAS_TABLE
-#define IMGUI_HAS_VIEWPORT          // Viewport WIP branch
-#define IMGUI_HAS_DOCK              // Docking WIP branch
-
 /*
 
 Index of this file:
@@ -69,15 +61,13 @@ Index of this file:
 #include <stddef.h>                 // ptrdiff_t, NULL
 #include <string.h>                 // memset, memmove, memcpy, strlen, strchr, strcpy, strcmp
 
-// Version
-// (Integer encoded as XYYZZ for use in #if preprocessor conditionals. Work in progress versions typically starts at XYY99 then bounce up to XYY00, XYY01 etc. when release tagging happens)
-#define IMGUI_VERSION               "1.88"
-#define IMGUI_VERSION_NUM           18800
-#define IMGUI_CHECKVERSION()        ImGui::DebugCheckVersionAndDataLayout(IMGUI_VERSION, sizeof(ImGuiIO), sizeof(ImGuiStyle), sizeof(ImVec2), sizeof(ImVec4), sizeof(ImDrawVert), sizeof(ImDrawIdx))
+// Library Version
+// (Integer encoded as XYYZZ for use in #if preprocessor conditionals, e.g. '#if IMGUI_VERSION_NUM > 12345')
+#define IMGUI_VERSION               "1.89.3 WIP"
+#define IMGUI_VERSION_NUM           18927
 #define IMGUI_HAS_TABLE
 #define IMGUI_HAS_VIEWPORT          // Viewport WIP branch
 #define IMGUI_HAS_DOCK              // Docking WIP branch
-#define IMGUI_HAS_STACK_LAYOUT      1 // Stack-Layout PR #846
 
 // Define attributes of all API symbols declarations (e.g. for DLL under Windows)
 // IMGUI_API is used for core imgui functions, IMGUI_IMPL_API is used for the default backends files (imgui_impl_xxx.h)
