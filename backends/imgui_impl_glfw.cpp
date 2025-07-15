@@ -212,6 +212,10 @@ static ImGui_ImplGlfw_Data* ImGui_ImplGlfw_GetBackendData()
     return ImGui::GetCurrentContext() ? (ImGui_ImplGlfw_Data*)ImGui::GetIO().BackendPlatformUserData : nullptr;
 }
 
+static bool ImGui_ImplGlfw_IsCursorEnabled(GLFWwindow* window) {
+    return glfwGetInputMode(window, GLFW_CURSOR) != GLFW_CURSOR_DISABLED;
+}
+
 // Forward Declarations
 static void ImGui_ImplGlfw_UpdateMonitors();
 static void ImGui_ImplGlfw_InitMultiViewportSupport();
@@ -480,8 +484,12 @@ void ImGui_ImplGlfw_CursorPosCallback(GLFWwindow* window, double x, double y)
         x += window_x;
         y += window_y;
     }
-    io.AddMousePosEvent((float)x, (float)y);
-    bd->LastValidMousePos = ImVec2((float)x, (float)y);
+    if (ImGui_ImplGlfw_IsCursorEnabled(window)) {
+        io.AddMousePosEvent((float)x, (float)y);
+        bd->LastValidMousePos = ImVec2((float)x, (float)y);
+    }
+
+   
 }
 
 // Workaround: X11 seems to send spurious Leave/Enter events which would make us lose our position,
@@ -496,7 +504,8 @@ void ImGui_ImplGlfw_CursorEnterCallback(GLFWwindow* window, int entered)
     if (entered)
     {
         bd->MouseWindow = window;
-        io.AddMousePosEvent(bd->LastValidMousePos.x, bd->LastValidMousePos.y);
+        if(ImGui_ImplGlfw_IsCursorEnabled(window))
+            io.AddMousePosEvent(bd->LastValidMousePos.x, bd->LastValidMousePos.y);
     }
     else if (!entered && bd->MouseWindow == window)
     {
@@ -796,7 +805,8 @@ static void ImGui_ImplGlfw_UpdateMouseData()
                     mouse_y += window_y;
                 }
                 bd->LastValidMousePos = ImVec2((float)mouse_x, (float)mouse_y);
-                io.AddMousePosEvent((float)mouse_x, (float)mouse_y);
+                if (ImGui_ImplGlfw_IsCursorEnabled(window))
+                    io.AddMousePosEvent((float)mouse_x, (float)mouse_y);
             }
         }
 
